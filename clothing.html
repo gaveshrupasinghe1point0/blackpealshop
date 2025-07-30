@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Clothing - MyShop</title>
+  <style>
+    /* Dark theme & animations same as other pages */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #111;
+      color: #f2f2f2;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    header h1 {
+      font-size: 1.8em;
+    }
+
+    nav a {
+      color: #ccc;
+      margin-left: 15px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #1abc9c;
+    }
+
+    #search {
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      width: 220px;
+      margin-top: 10px;
+    }
+
+    main {
+      padding: 20px;
+      animation: slideIn 0.6s ease-out;
+    }
+
+    h2 {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      color: #1abc9c;
+    }
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    .product {
+      background: #1f1f1f;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: popIn 0.5s ease;
+      box-shadow: 0 0 5px rgba(0, 255, 200, 0.05);
+    }
+
+    .product:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.2);
+    }
+
+    .product img {
+      width: 100%;
+      height: 140px;
+      object-fit: contain;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      background: #333;
+    }
+
+    .product-name {
+      font-weight: bold;
+      font-size: 1em;
+      margin-bottom: 5px;
+      color: #eee;
+    }
+
+    .price {
+      color: #1abc9c;
+      font-size: 1.1em;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.95);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      #search {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MyShop</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="electronics.html">Electronics</a>
+      <a href="clothing.html">Clothing</a>
+    </nav>
+    <input type="text" id="search" placeholder="Search products..." />
+  </header>
+
+  <main>
+    <h2>Clothing</h2>
+    <div class="product-list" id="product-list"></div>
+  </main>
+
+  <script>
+    const products = [
+      { name: "T-Shirt", price: 25, img: "" /* Add image URL here */ },
+      { name: "Jeans", price: 45, img: "" /* Add image URL here */ },
+      { name: "Jacket", price: 70, img: "" /* Add image URL here */ },
+      { name: "Sneakers", price: 85, img: "" /* Add image URL here */ },
+      { name: "Hoodie", price: 50, img: "" /* Add image URL here */ },
+      { name: "Dress Shirt", price: 35, img: "" /* Add image URL here */ },
+      { name: "Boots", price: 120, img: "" /* Add image URL here */ },
+      { name: "Cap", price: 15, img: "" /* Add image URL here */ },
+      { name: "Socks", price: 10, img: "" /* Add image URL here */ },
+      { name: "Scarf", price: 20, img: "" /* Add image URL here */ },
+      { name: "Leather Jacket", price: 150, img: "" /* Add image URL here */ },
+      { name: "Sweater", price: 55, img: "" /* Add image URL here */ },
+      { name: "Tank Top", price: 18, img: "" /* Add image URL here */ },
+      { name: "Running Shoes", price: 95, img: "" /* Add image URL here */ },
+      { name: "Shorts", price: 30, img: "" /* Add image URL here */ },
+      { name: "Gloves", price: 25, img: "" /* Add image URL here */ },
+      { name: "Blazer", price: 80, img: "" /* Add image URL here */ },
+      { name: "Sunglasses", price: 45, img: "" /* Add image URL here */ },
+      { name: "Belt", price: 22, img: "" /* Add image URL here */ },
+      { name: "Watch", price: 199, img: "" /* Add image URL here */ },
+      { name: "Raincoat", price: 60, img: "" /* Add image URL here */ },
+      { name: "Flip Flops", price: 15, img: "" /* Add image URL here */ },
+      { name: "Sweatpants", price: 40, img: "" /* Add image URL here */ },
+      { name: "Polo Shirt", price: 28, img: "" /* Add image URL here */ },
+      { name: "Jeans Jacket", price: 75, img: "" /* Add image URL here */ },
+      { name: "Cardigan", price: 50, img: "" /* Add image URL here */ },
+      { name: "Beanie", price: 18, img: "" /* Add image URL here */ },
+      { name: "Sports Jacket", price: 65, img: "" /* Add image URL here */ },
+      { name: "Rain Boots", price: 85, img: "" /* Add image URL here */ },
+      { name: "Windbreaker", price: 55, img: "" /* Add image URL here */ }
+    ];
+
+    const productList = document.getElementById("product-list");
+    const searchInput = document.getElementById("search");
+
+    function renderProducts(filter = "") {
+      productList.innerHTML = "";
+      const filtered = products.filter(p =>
+        p.name.toLowerCase().includes(filter.toLowerCase())
+      );
+      filtered.forEach(p => {
+        const imgSrc = p.img.trim() !== "" 
+          ? p.img 
+          : `https://via.placeholder.com/150/1abc9c/ffffff?text=${encodeURIComponent(p.name)}`;
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `
+          <img src="${imgSrc}" alt="${p.name}" />
+          <div class="product-name">${p.name}</div>
+          <div class="price">$${p.price}</div>
+        `;
+        productList.appendChild(div);
+      });
+    }
+
+    searchInput.addEventListener("input", e => renderProducts(e.target.value));
+    renderProducts();
+  </script>
+</body>
+</html>

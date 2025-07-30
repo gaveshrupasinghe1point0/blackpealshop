@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MyShop - Home</title>
+  <style>
+    /* Base Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #111;
+      color: #f2f2f2;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    header h1 {
+      font-size: 1.8em;
+    }
+
+    nav a {
+      color: #ccc;
+      margin-left: 15px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #1abc9c;
+    }
+
+    #search {
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      width: 220px;
+      margin-top: 10px;
+    }
+
+    main {
+      padding: 20px;
+      animation: slideIn 0.6s ease-out;
+    }
+
+    h2 {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      color: #1abc9c;
+    }
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    .product {
+      background: #1f1f1f;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: popIn 0.5s ease;
+      box-shadow: 0 0 5px rgba(0, 255, 200, 0.05);
+    }
+
+    .product:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.2);
+    }
+
+    .product img {
+      width: 100%;
+      height: 140px;
+      object-fit: contain;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      background: #333;
+    }
+
+    .product-name {
+      font-weight: bold;
+      font-size: 1em;
+      margin-bottom: 5px;
+      color: #eee;
+    }
+
+    .price {
+      color: #1abc9c;
+      font-size: 1.1em;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      #search {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>MyShop</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="electronics.html">Electronics</a>
+      <a href="clothing.html">Clothing</a>
+    </nav>
+    <input type="text" id="search" placeholder="Search products..." />
+  </header>
+
+  <main>
+    <h2>All Products</h2>
+    <div class="product-list" id="product-list"></div>
+  </main>
+
+  <script>
+    const productList = document.getElementById('product-list');
+    const searchInput = document.getElementById('search');
+
+    const products = [
+      { name: "Leather Jacket", price: 120, img: "https://barneysoriginals.com/wp-content/uploads/2019/01/WEASLEY-BLCK-0047h-scaled.jpg" /* add image URL here */ },
+      { name: "Running Shoes", price: 85, img: "" },
+      { name: "Smart Watch", price: 199, img: "" },
+      { name: "Wireless Earbuds", price: 99, img: "" },
+      { name: "Drone Pro", price: 350, img: "" },
+      { name: "Winter Gloves", price: 30, img: "" },
+      { name: "Denim Jeans", price: 50, img: "" },
+      { name: "Baseball Cap", price: 20, img: "" },
+      { name: "Formal Shirt", price: 45, img: "" },
+      { name: "Graphic T-Shirt", price: 25, img: "" },
+      { name: "Casual Shorts", price: 35, img: "" },
+      { name: "Sunglasses", price: 60, img: "" },
+      { name: "Backpack", price: 80, img: "" },
+      { name: "Bluetooth Speaker", price: 150, img: "" },
+      { name: "Hooded Sweatshirt", price: 55, img: "" },
+      { name: "Sports Watch", price: 130, img: "" },
+      { name: "Raincoat", price: 75, img: "" },
+      { name: "Leather Belt", price: 40, img: "" },
+      { name: "Cotton Socks", price: 15, img: "" },
+      { name: "Formal Trousers", price: 70, img: "" },
+      { name: "Wireless Charger", price: 45, img: "https://m.media-amazon.com/images/I/51pbKzrAd9L.jpg" },////
+      { name: "GO-Pro Camera", price: 220, img: "https://m.media-amazon.com/images/I/81GWHVzYT4L._AC_SL1500_.jpg" },
+      { name: "Beanie Hat", price: 18, img: "https://i8.amplience.net/t/jpl/jd_product_list?plu=jd_719844_al&qlt=85&qlt=92&w=320&h=320&v=1&fmt=auto" },
+      { name: "Fitness Tracker", price: 99, img: "https://cdn.outsideonline.com/wp-content/uploads/2023/10/fitness-tracker-1.jpg" },
+      { name: "Casual Sneakers", price: 90, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6ns2it1GR8XbMwrxhNvakcJlv2RvmmAlJCQ&s" },
+      { name: "Laptop Backpack", price: 110, img: "https://i5.walmartimages.com/seo/Lightweight-Backpack-for-Women-School-Book-Bag-Waterproof-Casual-Backpack-for-Men-Laptop-Bag-Travel-Daypack-for-Sports_0ed50ba4-78ed-4755-93aa-93f7dd6143d2.260918dd8affa797db63eb1147737dfa.jpeg" },
+      { name: "Winter Scarf", price: 25, img: "https://i.pinimg.com/564x/1c/3f/2c/1c3f2c4dc8fb01f4a6d65b41ca6e2089.jpg" },
+      { name: "Smartphone Case", price: 19, img: "https://i.etsystatic.com/51247502/r/il/c8b9e5/5908547836/il_300x300.5908547836_n2qn.jpg" },
+      { name: "Wireless Mouse", price: 45, img: "https://kreo-tech.com/cdn/shop/files/Artboard_3_4.png?v=1753673135" },
+      { name: "Designer Jacket", price: 180, img: "https://img4.dhresource.com/webp/m/0x0/f3/albu/km/o/22/04d39303-c586-4a60-b936-8d0bda2c291b.jpg" }
+    ];
+
+    function renderProducts(filter = "") {
+      productList.innerHTML = "";
+      const filtered = products.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()));
+      filtered.forEach(p => {
+        const imgSrc = p.img.trim() !== ""
+          ? p.img
+          : `https://via.placeholder.com/150/1abc9c/ffffff?text=${encodeURIComponent(p.name)}`;
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.innerHTML = `
+          <img src="${imgSrc}" alt="${p.name}" />
+          <div class="product-name">${p.name}</div>
+          <div class="price">$${p.price}</div>
+        `;
+        productList.appendChild(div);
+      });
+    }
+
+    searchInput.addEventListener('input', e => renderProducts(e.target.value));
+    renderProducts(); // Initial load
+  </script>
+
+</body>
+</html>
